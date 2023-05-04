@@ -1,0 +1,12 @@
+SELECT
+    billing_city,
+    COUNT(*) AS num_row,
+    ROUND(SUM(total), 2) AS overall_sale,
+    ROUND(MIN(total), 2) AS min_sale,
+    ROUND(AVG(total), 2) AS avg_sale,
+    ROUND(MAX(total), 2) AS max_sale
+ FROM invoice
+WHERE billing_country = 'France' OR billing_country = 'Canada'
+GROUP BY billing_city
+ORDER BY overall_sale DESC, avg_sale
+LIMIT 3;
