@@ -1,0 +1,8 @@
+SELECT t.track_id, t.name, 
+       COUNT(i.invoice_id) AS no_of_purchases
+  FROM track AS t
+  LEFT JOIN invoice_line AS il
+    ON t.track_id = il.track_id
+  LEFT JOIN invoice AS i
+    ON il.invoice_id = i.invoice_id AND SUBSTR(i.invoice_date,1,4) = '2020'
+  GROUP BY t.track_id, t.name
