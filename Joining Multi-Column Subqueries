@@ -1,0 +1,10 @@
+SELECT ct.country, 
+       i.invoice_tally / ct.customer_tally AS sale_avg_tally
+    FROM (SELECT billing_country, COUNT(*) AS invoice_tally
+            FROM invoice
+           GROUP BY billing_country) AS i
+    JOIN (SELECT country, COUNT(*) AS customer_tally
+            FROM customer
+           GROUP BY country) AS ct
+      ON i.billing_country = ct.country
+   ORDER BY sale_avg_tally DESC
