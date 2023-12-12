@@ -1,0 +1,7 @@
+ SELECT customer_id, AVG(total) AS customer_avg
+   FROM invoice
+  GROUP BY customer_id
+ HAVING AVG(total) > 
+        (SELECT AVG(total)
+           FROM invoice
+          WHERE customer_id = 5)
