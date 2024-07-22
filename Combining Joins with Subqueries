@@ -1,0 +1,8 @@
+SELECT city.name capital_city, f.name country, city.population
+  FROM facts f
+  JOIN (
+        SELECT c.* FROM cities c
+        WHERE c.population > 10000000 AND capital = 1
+       ) city
+    ON city.facts_id = f.id
+ ORDER BY 3 DESC;
