@@ -1,0 +1,20 @@
+WITH RECURSIVE
+managers_chain(employee_id, path) AS (
+
+SELECT employee_id, last_name || ' ' || first_name AS path 
+  FROM employee
+ WHERE reports_to IS NULL
+ 
+ UNION ALL
+ 
+SELECT e.employee_id,
+       m.path || '<--' || e.last_name || ' ' || e.first_name AS path
+  FROM employee e
+  JOIN managers_chain m
+    ON e.reports_to = m.employee_id
+    
+ )
+ 
+SELECT path
+  FROM managers_chain;
+  
